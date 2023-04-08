@@ -1,0 +1,29 @@
+﻿@using ZeroHunger.Models;
+@model ZeroHunger.Models.Task
+@{
+    ViewBag.Title = "EmployeeAssign";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@{
+    User user = new User();
+    user = (User)Session["user"];
+}
+
+@if (user == null)
+{
+    <h1>You Are Not Logged In.</h1>
+    @Html.ActionLink("Login", "Login", "Public");
+    return;
+}
+
+<h2>EmployeeAssign</h2>
+@Html.ValidationSummary()
+<form method="post">
+    Employee: <input type="text" name="Employee" value="" /> <br />
+    <input type="hidden" name="Id" value="@Model.Id" /> <br />
+    <input type="hidden" name="Restaurant" value="@Model.Restaurant" /> <br />
+    <input type="hidden" name="ReserveTime" value="@Model.ReserveTime" /> <br />
+    <input type="hidden" name="Status" value="@Model.Status" /> <br />
+    <input type="submit" value="Done" />
+</form>

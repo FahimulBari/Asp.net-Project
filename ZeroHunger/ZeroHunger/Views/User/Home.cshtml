@@ -1,0 +1,25 @@
+﻿@using ZeroHunger.Models;
+@model ZeroHunger.Models.User
+@{
+    ViewBag.Title = "Home";
+}
+
+@{
+    User user = new User();
+    user = (User)Session["user"];
+}
+
+@if (user == null)
+{
+    <h1>You Are Not Logged In.</h1>
+    @Html.ActionLink("Login", "Login", "Public");
+    return;
+}
+
+<h1>Home</h1>
+
+<h3>Welcome, @user.Name</h3>
+<h5>ID: @user.Id</h5>
+<h5>User: @user.UserType</h5>
+<h5>Email: @user.Email</h5>
+

@@ -1,0 +1,68 @@
+﻿@using ZeroHunger.Models;
+@model IEnumerable<ZeroHunger.Models.Task>
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@{
+    User user = new User();
+    user = (User)Session["user"];
+}
+
+@if (user == null)
+{
+    <h1>You Are Not Logged In.</h1>
+    @Html.ActionLink("Login", "Login", "Public");
+    return;
+}
+
+<h2>Dashboard</h2>
+@if (user.UserType == "Restaurant")
+{
+    @Html.ActionLink("Add", "AddTask", "Task");
+}
+<table>
+    <tr>
+        <th>Request Id</th>
+        <th>Restaurant</th>
+        <th>Status</th>
+        <th>Employee</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.Restaurant)</td>
+            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+            <td>@Html.DisplayFor(modelItem => item.Employee)</td>
+            <td>
+                @if (item.Status == "Open")
+                {
+                    if (user.UserType == "Restaurant")
+                    {<p>Request Sent</p>}
+                    if (user.UserType == "Admin")
+                    { @Html.ActionLink("Accept", "EmployeeAssign/" + item.Id, "Task");
+                }
+                if (user.UserType == "Employee")
+                {<p>Not Assigned</p>}
+            }
+
+                @if (item.Status == "In-Progress")
+                {
+                    if (user.UserType == "Restaurant")
+                    {<p>Employee Assigned</p>}
+                    if (user.UserType == "Admin")
+                    {<p>Employee Assigned</p>}
+                    if (user.UserType == "Employee")
+                    { @Html.ActionLink("Done", "TaskDone/" + item.Id, "Task");
+                }
+            }
+
+                @if (item.Status == "Done")
+                {<p>Done</p>}
+            </td>
+        </tr>
+    }
+</table>

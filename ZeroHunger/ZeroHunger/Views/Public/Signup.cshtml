@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+
+<h2>Signup</h2>
+@Html.ValidationSummary()
+<form method="post">
+    Name: <input type="text" name="Name" value="@(Model == null? "" : Model.Name)" /> <br />
+
+    Password: <input type="password" name="Password" value="@(Model == null? "" : Model.Password)" /> <br />
+
+    Email: <input type="email" name="Email" value="@(Model == null? "" : Model.Email)" /> <br />
+
+    Usertype:
+    <input type="radio" name="Usertype" value="Admin" /> Admin
+    <input type="radio" name="Usertype" value="Restaurant" /> Restaurant
+    <input type="radio" name="Usertype" value="Employee" /> Employee <br />
+
+    <input type="submit" value="Register" />
+</form>
+

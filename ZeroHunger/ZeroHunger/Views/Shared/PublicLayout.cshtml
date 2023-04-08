@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>@Html.ActionLink("Login", "Login", "Public")</li>
+            <li>@Html.ActionLink("Signup", "Signup", "Public")</li>
+        </ul>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        @@Copyright By Fahimul Bari
+    </footer>
+</body>
+</html>
